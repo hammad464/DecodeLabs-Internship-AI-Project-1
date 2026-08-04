@@ -1,0 +1,34 @@
+=== CHATBOT INTERACTIVE SESSION LOG ===
+=================================================================
+         WELCOME TO DECODELABS RULE-BASED AI CHATBOT         
+=================================================================
+Type your query below. Type 'exit', 'quit', or 'bye' to end session.
+
+You: Chatbot: Hello! Welcome to DecodeLabs AI Assistant. How can I help you today?
+
+You: Chatbot: Project 1 is the foundation phase of the DecodeLabs AI Internship focused on Control Flow, Logic, and Rule-Based Chatbots.
+
+You: Chatbot: DecodeLabs is an AI research & industrial training organization empowering future AI Engineers.
+
+You: Chatbot: The IPO Model stands for Input (Sanitization) -> Process (Intent Matching) -> Output (Response Generation).
+
+You: Chatbot: Rule-Based AI relies on explicit logic, guardrails, and deterministic hash-map rules to deliver 100% predictable responses without hallucinations.
+
+You: Chatbot: Rule-based systems use deterministic logic (White Box), while LLMs use probabilistic neural networks (Black Box).
+
+You: Chatbot: You can ask me questions like: 'hello', 'what is project 1', 'what is decodelabs', 'what is rule based ai', 'what is ipo model', or type 'exit' to quit.
+
+You: Chatbot: Goodbye! Have a great day ahead.
+
+=== UNIT TEST LOG ===
+test_blank_input (test_chatbot.TestRuleBasedChatbot.test_blank_input) ... ok
+test_direct_intent_lookup (test_chatbot.TestRuleBasedChatbot.test_direct_intent_lookup) ... ok
+test_fallback_response (test_chatbot.TestRuleBasedChatbot.test_fallback_response) ... ok
+test_keyword_fallback (test_chatbot.TestRuleBasedChatbot.test_keyword_fallback) ... ok
+test_punctuation_handling (test_chatbot.TestRuleBasedChatbot.test_punctuation_handling) ... ok
+test_sanitize_input (test_chatbot.TestRuleBasedChatbot.test_sanitize_input) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK

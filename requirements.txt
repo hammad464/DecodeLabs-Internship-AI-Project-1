@@ -1,0 +1,2 @@
+# DecodeLabs AI Internship - Project 1 Prerequisites
+# Standard Python 3.10+ installation required. No external third-party dependencies required.
