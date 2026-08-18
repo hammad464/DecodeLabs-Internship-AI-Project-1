@@ -147,8 +147,14 @@ def api_health():
 
 
 if __name__ == "__main__":
+    import sys
+    if sys.platform == "win32":
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
     print("\n========================================================")
-    print(" 🚀 DECODELABS RULE-BASED AI CHATBOT WEB SERVER ACTIVE")
-    print(" 🌐 Access UI locally at: http://127.0.0.1:5000")
+    print(" >> DECODELABS RULE-BASED AI CHATBOT WEB SERVER ACTIVE")
+    print(" >> Access UI locally at: http://127.0.0.1:5000")
     print("========================================================\n")
     app.run(host="0.0.0.0", port=5000, debug=False)
