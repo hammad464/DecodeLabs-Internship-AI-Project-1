@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DecodeLabs AI Assistant — Deterministic Rule-Based AI Chatbot</title>
+  <meta name="description" content="DecodeLabs AI Internship Project 1: Deterministic Rule-Based AI Chatbot featuring the IPO model, O(1) hash map intent resolution, and real-time execution telemetry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Dynamic Ambient Background Glow -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-shell">
+    
+    <!-- Floating Navigation Bar -->
+    <header class="navbar-container">
+      <div class="navbar-inner">
+        <div class="brand-group">
+          <div class="brand-logo">
+            <i class="ri-cpu-line"></i>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Decode<span>Labs</span> AI</div>
+            <div class="brand-subtitle">Project 1 • Deterministic Rule-Based Chatbot</div>
+          </div>
+        </div>
+
+        <div class="nav-status-badge">
+          <span class="status-indicator-dot"></span>
+          <span class="status-text">O(1) Engine Online</span>
+          <span class="status-tag">Deterministic</span>
+        </div>
+
+        <div class="nav-actions">
+          <button id="kbModalBtn" class="nav-btn" title="Open Knowledge Base Rules Matrix" aria-label="Knowledge Base">
+            <i class="ri-book-read-line"></i>
+            <span>Knowledge Matrix</span>
+          </button>
+
+          <button id="soundToggleBtn" class="nav-icon-btn active" title="Toggle Sound Feedback" aria-label="Toggle Sound">
+            <i class="ri-volume-up-line"></i>
+          </button>
+
+          <button id="exportChatBtn" class="nav-icon-btn" title="Export Conversation" aria-label="Export Chat">
+            <i class="ri-download-2-line"></i>
+          </button>
+
+          <button id="clearChatBtn" class="nav-icon-btn" title="Clear Conversation History" aria-label="Clear Chat">
+            <i class="ri-delete-bin-7-line"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Bento Grid Layout -->
+    <main class="main-bento-grid">
+      
+      <!-- Primary Chat Section (Left Bento Column) -->
+      <section class="chat-bento-card double-bezel-outer">
+        <div class="double-bezel-inner chat-card-content">
+          
+          <!-- Chat Header Bar -->
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div class="agent-avatar">
+                <i class="ri-robot-2-line"></i>
+              </div>
+              <div>
+                <h1 class="agent-name">DecodeLabs AI Assistant</h1>
+                <p class="agent-desc">Zero Hallucinations • Sub-Millisecond Hash Map Intent Engine</p>
+              </div>
+            </div>
+            <div class="latency-pill" id="liveLatencyPill">
+              <i class="ri-flashlight-line"></i>
+              <span id="latencyValue">0.08 ms</span>
+            </div>
+          </div>
+
+          <!-- Chat Stream Messages Container -->
+          <div class="messages-container" id="messagesContainer">
+            
+            <!-- Welcome Hero Box -->
+            <div class="welcome-hero" id="welcomeHero">
+              <div class="welcome-badge">
+                <i class="ri-sparkling-fill"></i>
+                <span>Deterministic IPO Architecture</span>
+              </div>
+              <h2>Welcome to DecodeLabs AI</h2>
+              <p>
+                Experience an ultra-fast, deterministic rule-based AI engine built with constant-time $O(1)$ intent mapping, robust input sanitization, and continuous guardrails.
+              </p>
+
+              <!-- Quick Prompt Pills Grid -->
+              <div class="prompt-chips-label">
+                <i class="ri-compass-3-line"></i> Try asking these queries:
+              </div>
+              <div class="prompt-chips-grid">
+                <button class="prompt-chip" data-prompt="What is project 1?">
+                  <i class="ri-code-box-line"></i> What is Project 1?
+                </button>
+                <button class="prompt-chip" data-prompt="What is IPO model?">
+                  <i class="ri-flow-chart"></i> Explain IPO Model
+                </button>
+                <button class="prompt-chip" data-prompt="Tell me about DecodeLabs">
+                  <i class="ri-building-4-line"></i> Tell me about DecodeLabs
+                </button>
+                <button class="prompt-chip" data-prompt="What is rule based AI?">
+                  <i class="ri-brain-line"></i> What is Rule-Based AI?
+                </button>
+                <button class="prompt-chip" data-prompt="Rule based vs LLM">
+                  <i class="ri-scales-3-line"></i> Rule-Based vs LLM
+                </button>
+                <button class="prompt-chip" data-prompt="help">
+                  <i class="ri-question-line"></i> Help & Commands
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Messages will be injected here -->
+          </div>
+
+          <!-- Typing Indicator -->
+          <div class="typing-indicator-bar" id="typingIndicator" style="display: none;">
+            <div class="typing-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="typing-text">Evaluating IPO Hash Map...</span>
+          </div>
+
+          <!-- Input Bar Area -->
+          <div class="chat-input-wrapper">
+            <form id="chatForm" class="chat-input-form">
+              <div class="input-container">
+                <textarea 
+                  id="messageInput" 
+                  rows="1" 
+                  placeholder="Ask a question or enter an intent (e.g. 'What is project 1?')..."
+                  autocomplete="off"
+                  spellcheck="false"
+                ></textarea>
+                <div class="input-actions">
+                  <button type="button" id="micDummyBtn" class="action-btn" title="Simulate Voice Prompt">
+                    <i class="ri-mic-line"></i>
+                  </button>
+                  <button type="submit" id="sendBtn" class="send-btn" title="Send message (Enter)">
+                    <span>Send</span>
+                    <div class="send-icon-circle">
+                      <i class="ri-arrow-up-line"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="input-footer-hints">
+              <span>Press <kbd>Enter</kbd> to send • <kbd>Shift + Enter</kbd> for line break</span>
+              <span class="ipo-link" id="toggleInspectorMobile"><i class="ri-dashboard-3-line"></i> Toggle Telemetry</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Real-Time IPO Pipeline Inspector (Right Bento Column) -->
+      <aside class="inspector-bento-card double-bezel-outer" id="inspectorSidebar">
+        <div class="double-bezel-inner inspector-card-content">
+          
+          <div class="inspector-header">
+            <div class="inspector-title-group">
+              <div class="inspector-icon">
+                <i class="ri-pulse-line"></i>
+              </div>
+              <div>
+                <h2>IPO Live Inspector</h2>
+                <p>Input &rarr; Process &rarr; Output Telemetry</p>
+              </div>
+            </div>
+            <span class="badge-active">Live Stream</span>
+          </div>
+
+          <!-- Step 1: Input Phase -->
+          <div class="pipeline-step-card" id="stepInput">
+            <div class="step-badge-row">
+              <span class="step-number">01</span>
+              <span class="step-name">Input Sanitization</span>
+              <span class="step-status" id="step1Status">Ready</span>
+            </div>
+            <div class="step-detail-box">
+              <div class="detail-row">
+                <span class="detail-label">Raw Query:</span>
+                <span class="detail-val mono" id="telemetryRawInput">"hello!"</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Cleaned String:</span>
+                <span class="detail-val mono highlight" id="telemetrySanitizedInput">"hello"</span>
+              </div>
+              <div class="sanitization-tags">
+                <span class="mini-tag"><i class="ri-check-line"></i> Lowercase</span>
+                <span class="mini-tag"><i class="ri-check-line"></i> Strip Whitespace</span>
+                <span class="mini-tag"><i class="ri-check-line"></i> Punctuation Stripped</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Process Phase -->
+          <div class="pipeline-step-card" id="stepProcess">
+            <div class="step-badge-row">
+              <span class="step-number">02</span>
+              <span class="step-name">Intent Resolution</span>
+              <span class="step-status" id="step2Status">Ready</span>
+            </div>
+            <div class="step-detail-box">
+              <div class="detail-row">
+                <span class="detail-label">Match Strategy:</span>
+                <span class="detail-val badge-match" id="telemetryMatchType">O(1) Direct Hash</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Resolved Key:</span>
+                <span class="detail-val mono" id="telemetryMatchedKey">"hello"</span>
+              </div>
+              <div class="algorithm-flow">
+                <div class="algo-node active" id="nodeHash">Hash Table $O(1)$</div>
+                <i class="ri-arrow-right-s-line"></i>
+                <div class="algo-node" id="nodeSubstring">Substring Scan</div>
+                <i class="ri-arrow-right-s-line"></i>
+                <div class="algo-node" id="nodeFallback">Fallback Guard</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Output Phase -->
+          <div class="pipeline-step-card" id="stepOutput">
+            <div class="step-badge-row">
+              <span class="step-number">03</span>
+              <span class="step-name">Response & Telemetry</span>
+              <span class="step-status" id="step3Status">Ready</span>
+            </div>
+            <div class="step-detail-box">
+              <div class="detail-row">
+                <span class="detail-label">Execution Latency:</span>
+                <span class="detail-val mono highlight-cyan" id="telemetryLatency">0.052 ms</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Hallucination Risk:</span>
+                <span class="detail-val mono highlight-green">0.00% (Deterministic)</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Response Status:</span>
+                <span class="detail-val mono" id="telemetryRespStatus">200 OK • Dispatched</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Deck -->
+          <div class="stats-deck">
+            <div class="stat-box">
+              <div class="stat-number" id="statRuleCount">22</div>
+              <div class="stat-label">Active Rules</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number" id="statQueriesCount">0</div>
+              <div class="stat-label">Queries Run</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">O(1)</div>
+              <div class="stat-label">Complexity</div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- Knowledge Base Rules Matrix Modal -->
+    <div class="modal-backdrop" id="kbModal" style="display: none;">
+      <div class="modal-container double-bezel-outer">
+        <div class="double-bezel-inner modal-content">
+          
+          <div class="modal-header">
+            <div class="modal-title-group">
+              <div class="modal-icon"><i class="ri-book-read-line"></i></div>
+              <div>
+                <h3>Knowledge Base Matrix</h3>
+                <p>Explore all 22 deterministic intents, aliases, and rule definitions</p>
+              </div>
+            </div>
+            <button class="modal-close-btn" id="closeKbModalBtn" aria-label="Close Modal">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+
+          <div class="modal-search-bar">
+            <i class="ri-search-line"></i>
+            <input type="text" id="kbSearchInput" placeholder="Filter rules by intent or keyword..." autocomplete="off">
+          </div>
+
+          <div class="modal-rules-grid" id="kbRulesContainer">
+            <!-- Rules dynamically rendered by JavaScript -->
+          </div>
+
+          <div class="modal-footer">
+            <span>Click any rule card to test it immediately in the chatbot.</span>
+            <button class="nav-btn primary" id="closeKbModalBottomBtn">Done Exploring</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

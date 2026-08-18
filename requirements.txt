@@ -1,2 +1,4 @@
 # DecodeLabs AI Internship - Project 1 Prerequisites
-# Standard Python 3.10+ installation required. No external third-party dependencies required.
+# Standard Python 3.10+ installation required.
+Flask>=3.0.0
+flask-cors>=4.0.0
