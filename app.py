@@ -147,14 +147,31 @@ def api_health():
 
 
 if __name__ == "__main__":
+    import os
     import sys
+    import socket
+
     if sys.platform == "win32":
         try:
             sys.stdout.reconfigure(encoding='utf-8')
         except Exception:
             pass
+
+    def get_free_port(preferred_port=5000):
+        if "PORT" in os.environ:
+            return int(os.environ["PORT"])
+        for p in [preferred_port, 8000, 5050, 8080]:
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.bind(("127.0.0.1", p))
+                    return p
+            except OSError:
+                continue
+        return preferred_port
+
+    port = get_free_port(5000)
     print("\n========================================================")
     print(" >> DECODELABS RULE-BASED AI CHATBOT WEB SERVER ACTIVE")
-    print(" >> Access UI locally at: http://127.0.0.1:5000")
+    print(f" >> Access UI locally at: http://127.0.0.1:{port}")
     print("========================================================\n")
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=False)
